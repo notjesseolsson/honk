@@ -1,0 +1,14 @@
+{
+  "name": "Honk",
+  "description": "A dang fine game",
+  "version": "1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": {
+    "128": "icon.png"
+  }
+}
