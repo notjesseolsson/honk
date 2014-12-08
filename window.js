@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function render() {
     requestAnimationFrame(render)
-    renderer.render(scene, camera)
     beforeRender()
+    renderer.render(scene, camera)
   }
 
   function beforeRender() {
