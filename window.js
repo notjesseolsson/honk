@@ -1,36 +1,26 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-  var scene = new THREE.Scene(),
-    camera = new THREE.PerspectiveCamera(
-      45,
-      innerWidth / innerHeight,
-      .1,
-      1000
-    ),
-    light = new THREE.PointLight(),
-    cube = new THREE.Mesh(
-      new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshLambertMaterial()
-    ),
-    renderer = new THREE.WebGLRenderer()
-
-  cube.position.set(0, 0, -5)
-  scene.add(camera)
-  scene.add(cube)
-  scene.add(light)
+$(function() {
+  var renderer = new THREE.WebGLRenderer()
   renderer.setSize(innerWidth, innerHeight)
-  document.body.appendChild(renderer.domElement)
-  render()
+  $('body').append(renderer.domElement)
+  var loader = new THREE.SceneLoader()
+  loader.load('scene.json', function(json) {
+    var scene = json.scene
+    var camera = json.cameras.Camera
+    camera.aspect = innerWidth / innerHeight
+    camera.updateProjectionMatrix()
+    render()
 
-  function render() {
-    requestAnimationFrame(render)
-    beforeRender()
-    renderer.render(scene, camera)
-  }
-
-  function beforeRender() {
-    cube.rotation.z += .01
-    cube.rotation.y += .01
-  }
-
+    function render() {
+      requestAnimationFrame(render)
+      beforeRender(scene, camera)
+      renderer.render(scene, camera)
+    }
+  })
 })
+
+function beforeRender(scene, camera) {
+  var cyl = scene.getObjectByName('Cylinder')
+  cyl.rotation.y += .01
+  cyl.rotation.z += .01
+  cyl.rotation.x += .01
+}
